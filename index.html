@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>My Love A–Z ❤️</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Poppins&display=swap" rel="stylesheet">
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background: radial-gradient(circle at top, #1a001f, #000);
+    color: #fff;
+    overflow: hidden;
+}
+
+/* MUSIC */
+audio {
+    display: none;
+}
+
+/* HEART ANIMATION */
+.heart {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    background: red;
+    transform: rotate(45deg);
+    animation: float 8s infinite;
+    opacity: 0.6;
+}
+.heart::before, .heart::after {
+    content: '';
+    width: 20px;
+    height: 20px;
+    background: red;
+    border-radius: 50%;
+    position: absolute;
+}
+.heart::before {
+    top: -10px;
+    left: 0;
+}
+.heart::after {
+    left: -10px;
+    top: 0;
+}
+
+@keyframes float {
+    0% { bottom: -10%; opacity: 0; }
+    50% { opacity: 0.7; }
+    100% { bottom: 110%; opacity: 0; }
+}
+
+/* MAIN CONTAINER */
+.container {
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 20px;
+}
+
+/* FIRST PAGE */
+#intro {
+    animation: fadeIn 2s ease;
+}
+#intro h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: 3rem;
+    color: #ff4da6;
+    text-shadow: 0 0 20px #ff4da6;
+}
+#intro p {
+    margin-top: 15px;
+    font-size: 1.2rem;
+    opacity: 0.8;
+}
+#startBtn {
+    margin-top: 30px;
+    padding: 12px 30px;
+    border: none;
+    border-radius: 30px;
+    background: linear-gradient(45deg, #ff4da6, #ff0066);
+    color: white;
+    font-size: 1rem;
+    cursor: pointer;
+    box-shadow: 0 0 15px #ff4da6;
+}
+
+/* SLIDES */
+#slideshow {
+    display: none;
+    animation: fadeIn 1s;
+}
+.letter {
+    font-size: 4rem;
+    color: #ff4da6;
+    font-family: 'Playfair Display', serif;
+}
+.text {
+    margin-top: 20px;
+    font-size: 1.3rem;
+    max-width: 700px;
+}
+#nextBtn {
+    margin-top: 40px;
+    padding: 10px 25px;
+    border-radius: 25px;
+    border: 1px solid #ff4da6;
+    background: transparent;
+    color: #ff4da6;
+    cursor: pointer;
+}
+
+/* FINAL MESSAGE */
+#final {
+    display: none;
+    animation: pop 1.5s ease;
+}
+#final h1 {
+    font-size: 3rem;
+    color: #ff4da6;
+}
+#final p {
+    margin-top: 20px;
+    font-size: 1.4rem;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes pop {
+    0% { transform: scale(0.2); opacity: 0; }
+    100% { transform: scale(1); opacity: 1; }
+}
+</style>
+</head>
+
+<body>
+
+<audio autoplay loop>
+    <source src="love.mp3" type="audio/mpeg">
+</audio>
+
+<div class="container">
+
+    <!-- INTRO -->
+    <div id="intro">
+        <h1>For My Love ❤️</h1>
+        <p>A–Z reasons of my love for you</p>
+        <button id="startBtn">Begin Our Story</button>
+    </div>
+
+    <!-- SLIDES -->
+    <div id="slideshow">
+        <div class="letter" id="letter"></div>
+        <div class="text" id="text"></div>
+        <button id="nextBtn">Next 💕</button>
+    </div>
+
+    <!-- FINAL -->
+    <div id="final">
+        <h1>Forever Us ❤️</h1>
+        <p>
+            Dear Abhi, wishing you a very happy birthday.<br><br>
+            Thank you for being my everything.  
+            I choose you today, tomorrow, and forever.
+        </p>
+    </div>
+
+</div>
+
+<script>
+const slides = [
+["A","Adorable and cute face of yours, keeps me thinking of you"],
+["B","Beloved, you are my only bae"],
+["C","Cherishing you till my last breath is the only goal"],
+["D","Devotion of your love attracts me towards you"],
+["E","Eternal beauty of you words, i wanna experience everyday"],
+["F","Forever with you my love, is the only dream"],
+["G","Grateful to have you in my life as my life partner"],
+["H","Heartbeat of mine belongs to you"],
+["I","Infinite happiness of yours is my inspiration to live"],
+["J","Joy of being with you is unmatchable"],
+["K","King of my heart and the my only love"],
+["L","Love you to the moon and back"],
+["M","Magic of your love"],
+["N","Naughty natured Abhi will surely bring out wildest Dhanu"],
+["O","Obsessed with you forever"],
+["P","Passionate kisses is all i need"],
+["Q","Queen of yours loves you very much, my king"],
+["R","Romance with me, fight with me but always be with me"],
+["S","Soulmate and my Sweetheart"],
+["T","Together forever with you"],
+["U","Unconditional love that you give me no one else can give"],
+["V","Vows of marriage which we will take together, i promise to fulfill them every day till the end of my life"],
+["W","Warmth of you love heals me, baby"],
+["X","XOXO kisses"],
+["Y","You are my home"],
+["Z","Zeal of loving you, keeps getting stronger every day"]
+];
+
+let index = 0;
+
+document.getElementById("startBtn").onclick = () => {
+    intro.style.display = "none";
+    slideshow.style.display = "block";
+    showSlide();
+};
+
+document.getElementById("nextBtn").onclick = () => {
+    index++;
+    if(index < slides.length){
+        showSlide();
+    } else {
+        slideshow.style.display = "none";
+        final.style.display = "block";
+    }
+};
+
+function showSlide(){
+    letter.innerText = slides[index][0];
+    text.innerText = slides[index][1];
+}
+
+/* Floating hearts */
+for(let i=0;i<20;i++){
+    let h=document.createElement("div");
+    h.className="heart";
+    h.style.left=Math.random()*100+"%";
+    h.style.animationDuration=(5+Math.random()*5)+"s";
+    document.body.appendChild(h);
+}
+</script>
+
+</body>
+</html>
